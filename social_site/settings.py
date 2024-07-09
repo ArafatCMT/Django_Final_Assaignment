@@ -29,6 +29,7 @@ SECRET_KEY = 'django-insecure-1xvje3voa=r(7_byz*2$$!l*6ksagmkx0=7ij=k3bsl3n4ysbp
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://dashboard.render.com']
 
 
 # Application definition

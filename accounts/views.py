@@ -38,7 +38,7 @@ class RegistrationView(APIView):
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
 
-            verification_link = f"http://127.0.0.1:8000/accounts/verify/{token}/{uid}"
+            verification_link = f"https://social-site-sn40.onrender.com/accounts/verify/{token}/{uid}"
 
             email_subject = "Verify Your Account"
             email_body = render_to_string('Verification_mail.html', {'verification_link': verification_link})

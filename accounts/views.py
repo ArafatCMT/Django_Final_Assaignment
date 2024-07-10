@@ -91,11 +91,11 @@ class LoginView(APIView):
 
 class LogoutView(APIView):
     def get(self, request):
-        if request.user.is_authenticated:
-            request.user.auth_token.delete()
-            logout(request)
-            return redirect('login')
+        # if request.user.is_authenticated:
+        request.user.auth_token.delete()
+        logout(request)
         return redirect('login')
+        # return redirect('login')
 
 # class ProfileView(APIView):
 #     permission_classes = [IsAuthenticated]

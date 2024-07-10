@@ -29,6 +29,7 @@ SECRET_KEY = 'django-insecure-1xvje3voa=r(7_byz*2$$!l*6ksagmkx0=7ij=k3bsl3n4ysbp
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = ['https://social-site-sn40.onrender.com']
 
 

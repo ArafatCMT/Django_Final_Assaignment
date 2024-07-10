@@ -21,13 +21,13 @@ class PostForSpecificUser(filters.BaseFilterBackend):
         return queryset
     
 class PostForUserView(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = models.Post.objects.all()
     serializer_class = serializers.PostSerializer
     filter_backends = [PostForSpecificUser]
 
 class PostUpload(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     serializer_class = serializers.PostSerializer
 
     # def get(self, request, format=None):
@@ -53,7 +53,7 @@ class PostUpload(APIView):
 
 class PostDetail(APIView):
     serializer_class = serializers.PostSerializer
-    permission_classes = [IsAuthorOrReadOnly]
+    # permission_classes = [IsAuthorOrReadOnly]
 
     def get_objects(self, pk):
         try:
@@ -93,7 +93,7 @@ class LikeForSpecificPost(filters.BaseFilterBackend):
 
 # ak ta post koto gula like ase ta dakar view
 class ShowLikeView(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = models.Like.objects.all()
     serializer_class = serializers.LikeSerializer
     filter_backends = [LikeForSpecificPost]
@@ -101,7 +101,7 @@ class ShowLikeView(generics.ListAPIView):
 
 #like korar view
 class LikeView(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     serializer_class = serializers.LikeSerializer
 
     def get_objects(self, request, post):

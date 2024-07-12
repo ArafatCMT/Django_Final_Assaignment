@@ -40,12 +40,10 @@ class PostUpload(APIView):
     
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
-        account = self.get_objects(request.user)
         if serializer.is_valid():
             # print(self.get_objects(request.user))
-            
-            # print(serializer.validated_data['account'])
-            serializer.save(account=account)
+            serializer.validated_data['account'] = self.get_objects(request.user)
+            serializer.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

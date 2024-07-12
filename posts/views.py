@@ -10,6 +10,8 @@ from rest_framework import filters
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from accounts.models import Account
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.viewsets import ModelViewSet
 # Create your views here.
 
 class PostForSpecificUser(filters.BaseFilterBackend):
@@ -29,11 +31,8 @@ class PostForUserView(generics.ListAPIView):
 class PostUpload(APIView):
     # permission_classes = [IsAuthenticated]
     serializer_class = serializers.PostSerializer
+    parser_classes = (MultiPartParser, FormParser)
 
-    # def get(self, request, format=None):
-    #     posts = models.Post.objects.all()
-    #     serializer = serializers.PostSerializer(posts, many=True)
-    #     return Response(serializer.data)
     def get_objects(self, user):
         acccount = Account.objects.get(user=user)
         return acccount
@@ -46,7 +45,23 @@ class PostUpload(APIView):
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# new
+class PostUploadViewSet(ModelViewSet):
+    queryset = models.Post.objects.all()
+    # print(queryset)
+    parser_classes = (MultiPartParser, FormParser)
+    serializer_class = serializers.PostSerializer
     
+    
+    def create(self, request, *args, **kwargs):
+        account = Account.objects.get(user=request.user)
+        description = request.data["description"]
+        image = request.data['image']
+
+        models.Post.objects.create(account=account, image=image, description=description)
+        return Response("upload successfully", status=status.HTTP_201_CREATED)
     
 
 class PostDetail(APIView):
